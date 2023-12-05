@@ -16,14 +16,8 @@ Pour cela nous allons utiliser 4 machines virtuelles, a savoir :
 
 Chacune de ces machines virtuelles tourne sur Debian 12.2.0 sur l'architecture aarch64.
 
-Étape I : Élaboration du schéma d’architecture
-----------------------------------------------
 
-Avant de commencer l'aspect purement technique nous allons élaborer un schema pour visualiser et faciliter l'implementation du cluster :
-
-Le document en question est disponible sur le repository : Schema d'architecture.pdf
-
-Étape II : Création d’images Docker pour développer une application Web
+Création d’images Docker pour développer une application Web
 -----------------------------------------------------------------------
 
 Nous allons utiliser la vm4 (private-registry.vm4.local) pour la création des images docker que nous utiliserons dans ce projet, il sera plus propre par la suite d'y installer le docker registry dessus pour ne pas mélanger les installations avec les autres machines virtuelles.
@@ -147,7 +141,7 @@ sudo docker run --name front --network network -p 3000:3000 -d front-image
 
 Nous pouvons désormais communiquer en accédant a partir du front, au back et a la db.
 
-Étape III : Registry privée
+Registry privée
 ---------------------------
 
 Nous allons toujours rester sur la vm4 pour le moment, l'objectif est de generer des certificats auto-signé pour pouvoir pull les images d'un registry docker privée, car elle passent par défaut en TLS.
@@ -763,7 +757,7 @@ kubectl apply -f mongodb-pvs.yaml
 
 Nous en définissons directement trois, car nous nous en servirons par la suite pour le “Statefulsets”. Vous remarquerez que nous définissons un storageClassName: "my-local-storage", il nous sera utilise pour la prochaine étape.
 
-Étape IX : Cluster BDD
+Cluster BDD
 ----------------------
 
 Pour cette installation nous allons utiliser le concept de Statefulsets. Dans notre cas ce concept sera plus adapté car nous avons besoin que ces pods est une configuration réseau fixe avec un stockage persistant.
@@ -813,7 +807,7 @@ Lancer la commande pour lancer le Statefulset :
 kubectl apply -f mongodb-statefulset.yaml 
 ```
 
-Étape X : Monitoring
+Monitoring
 --------------------
 
 Des outils comme Prometheus, Grafana, et Alertmanager sont des choix populaires pour le monitoring de clusters Kubernetes.
